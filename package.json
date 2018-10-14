@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format": "prettier README.md ./{docs,defaults}/**/*.{md,json} --write",
+    "services:cleanup": "sudo rm -fr ./services/*/data.tmp/"
+  },
+  "devDependencies": {
+    "prettier": "1.13.7"
+  }
+}

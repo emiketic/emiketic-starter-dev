@@ -1,0 +1,16 @@
+version: '2.3'
+
+services:
+
+  thumbor:
+    image: apsl/thumbor:6.4.2
+    hostname: thumbor
+    ports:
+      - 8888:8000
+    volumes:
+      # - ./thumbor.conf:/usr/src/app/thumbor.conf
+      - ./data.tmp:/data
+    environment:
+      - UPLOAD_ENABLED=True
+
+# => http://localhost:8888/

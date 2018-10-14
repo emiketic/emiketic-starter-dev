@@ -1,0 +1,47 @@
+version: '2.3'
+
+# comment/uncomment services according to pereference
+
+services:
+
+  mailcatcher:
+    extends:
+      file: ./services/mailcatcher/docker-compose.yml
+      service: mailcatcher
+    container_name: ${PROJECT}-mailcatcher
+
+  # postgres:
+  #   extends:
+  #     file: ./services/postgres/docker-compose.yml
+  #     service: postgres
+  #   container_name: ${PROJECT}-postgres
+
+  # pgadmin:
+  #   extends:
+  #     file: ./services/pgadmin/docker-compose.yml
+  #     service: pgadmin
+  #   container_name: ${PROJECT}-pgadmin
+
+  mongo:
+    extends:
+      file: ./services/mongo/docker-compose.yml
+      service: mongo
+    container_name: ${PROJECT}-mongo
+
+  redis:
+    extends:
+      file: ./services/redis/docker-compose.yml
+      service: redis
+    container_name: ${PROJECT}-redis
+
+  redis-commander:
+    extends:
+      file: ./services/redis-commander/docker-compose.yml
+      service: redis-commander
+    container_name: ${PROJECT}-redis-commander
+
+  # thumbor:
+  #   extends:
+  #     file: ./services/thumbor/docker-compose.yml
+  #     service: thumbor
+  #   container_name: ${PROJECT}-thumbor

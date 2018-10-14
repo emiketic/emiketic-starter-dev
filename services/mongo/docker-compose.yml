@@ -1,0 +1,11 @@
+version: '2.3'
+
+services:
+
+  mongo:
+    image: mongo:3.6
+    hostname: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data.tmp:/data/db
