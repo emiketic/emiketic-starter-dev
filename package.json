@@ -4,6 +4,6 @@
     "services:cleanup": "sudo rm -fr ./services/*/data.tmp/"
   },
   "devDependencies": {
-    "prettier": "1.13.7"
+    "prettier": "~1.14.3"
   }
 }
