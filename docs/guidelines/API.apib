@@ -1,0 +1,172 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Starter API
+
+## Authentication [/auth]
+
+### Log in [POST /auth/login]
+
++ Request (application/json)
+
+        {
+          "username": "test@example.com",
+          "password": "test"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "user": {
+                "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
+                "name": "Test User",
+                "email": "test@example.com",
+                "picture": "https://randomuser.me/api/portraits/lego/7.jpg"
+            }
+        }
+
++ Response 401 (application/json)
+
+        {
+            "code": "Unauthenticated",
+            "message": "Invalid credentials"
+        }
+
+### Sign up [POST /auth/signup]
+
++ Request (application/json)
+
+        {
+            "user": {
+                "name": "Test User",
+                "email": "test@example.com",
+                "password": "testpass",
+                "picture": "https://randomuser.me/api/portraits/lego/7.jpg"
+            }
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "user": {
+                "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
+                "name": "Test User",
+                "email": "test@example.com",
+                "picture": "https://randomuser.me/api/portraits/lego/7.jpg"
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "code": "AccountEmailExists",
+            "message": "An account with the provided email address already exists. Please try account recovery."
+        }
+
+
+### Account Recovery Initiation [POST /auth/recovery/initiate]
+
++ Request (application/json)
+
+        {
+          "email": "test@example.com",
+        }
+
+
++ Response 200 (application/json)
+
+        {
+        }
+
+
+### Account Recovery Password Reset [POST /auth/recovery/reset]
+
++ Request (application/json)
+
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "password": "testpass"
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "user": {
+                "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
+                "name": "Test User",
+                "email": "test@example.com",
+                "picture": "https://randomuser.me/api/portraits/lego/7.jpg"
+            }
+        }
+
+
+### User account [GET /auth/account]
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+
++ Response 200 (application/json)
+
+        {
+            "user": {
+                "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
+                "name": "Test User",
+                "email": "test@example.com",
+                "picture": "https://randomuser.me/api/portraits/lego/7.jpg"
+            }
+        }
+
++ Response 401 (application/json)
+
+        {
+            "code": "Unauthenticated",
+            "message": "Not authenticated"
+        }
+
++ Response 403 (application/json)
+
+        {
+            "code": "Unauthorized",
+            "message": "Not authorized"
+        }
+
+## To Do [/todo]
+
+
+### Retrieve all notes [GET /todo]
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+
++ Response 200 (application/json)
+
+        {
+            "todo": [{
+                "id": "1",
+                "label": "do something...",
+                "done": true
+            }, {
+                "id": "2",
+                "label": "do something else ...",
+                "done": false
+            }]
+        }
+
++ Response 401 (application/json)
+
+        {
+            "code": "Unauthenticated",
+            "message": "Not authenticated"
+        }
