@@ -3,7 +3,6 @@
 Refer to the following repositories for reference implementation:
 
 - [React Starter with Material Design](https://github.com/emiketic/emiketic-starter-react/)
-- [React Starter with Ant Design](https://github.com/emiketic/emiketic-starter-react-antd/)
 - [React Native Starter](https://github.com/emiketic/emiketic-starter-react-native/)
 
 and check `Auth` and `Home` modules for concrete example.

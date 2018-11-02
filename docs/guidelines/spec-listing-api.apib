@@ -1,0 +1,53 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Listing API with Pagination, Sorting, and Filtering
+
+Posts listing.
+
+## Posts Collection [/posts]
+
+### List Posts [GET /posts{?offset,limit,sort,filter}]
+
++ Parameters
+    + offset: `0` (number, optional) - Requested offset.
+            + Default: `1`
+    + limit: `10` (number, optional) - Page size; number of records to return.
+            + Default: `10`
+    + sort: `created_at:-1` (string, optional) - Sort configuration.
+            + Default: `created_at:-1`
+    + filter: `{ "type": "text" }` (string, optional) - Filter query as JSON.
+            + Default: null
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "id": 1,
+                    "title": "Tite #1",
+                    "body": "Body..."
+                },
+                {
+                    "id": 2,
+                    "title": "Tite #2",
+                    "body": "Body..."
+                },
+                {
+                    "id": 3,
+                    "title": "Tite #3",
+                    "body": "Body..."
+                }
+            ],
+            "meta": {
+                "offset": 0,
+                "limit": 3,
+                "total": 5,
+                "sort": {
+                  "created_at": -1
+                },
+                "filter": {
+                  "type": "text"
+                }
+            }
+        }
