@@ -74,30 +74,30 @@ import * as activity from '../common/activity.state';
 export const NAME = 'Home';
 
 /**
- * Fetch Home Data
+ * Fetch Tasks
  */
 
-const HOME_DATA_REQUEST = 'HOME_DATA_REQUEST';
+const HOME_TASK_INDEX_REQUEST = 'HOME_TASK_INDEX_REQUEST';
 
-const fetchDataRequest = StateHelper.createRequestAction(HOME_DATA_REQUEST);
+const fetchTaskIndexRequest = StateHelper.createRequestAction(HOME_TASK_INDEX_REQUEST);
 
-const HOME_DATA_SUCCESS = 'HOME_DATA_SUCCESS';
+const HOME_TASK_INDEX_SUCCESS = 'HOME_TASK_INDEX_SUCCESS';
 
-const fetchDataSuccess = StateHelper.createSuccessAction(HOME_DATA_SUCCESS);
+const fetchTaskIndexSuccess = StateHelper.createSuccessAction(HOME_TASK_INDEX_SUCCESS);
 
-const HOME_DATA_FAILURE = 'HOME_DATA_FAILURE';
+const HOME_TASK_INDEX_FAILURE = 'HOME_TASK_INDEX_FAILURE';
 
-const fetchDataFailure = StateHelper.createFailureAction(HOME_DATA_FAILURE);
+const fetchTaskIndexFailure = StateHelper.createFailureAction(HOME_TASK_INDEX_FAILURE);
 
-export function $fetchData() {
+export function $fetchTaskIndex() {
   return (dispatch) => {
     dispatch(activity.$processing());
-    dispatch(fetchDataRequest());
+    dispatch(fetchTaskIndexRequest());
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
-      .then((result) => dispatch(fetchDataSuccess({ data: result })))
-      .catch((error) => dispatch(fetchDataFailure(error)))
+      .then((result) => dispatch(fetchTaskIndexSuccess({ tasks: result })))
+      .catch((error) => dispatch(fetchTaskIndexFailure(error)))
       .finally(() => dispatch(activity.$done()));
   };
 }
@@ -108,25 +108,25 @@ export function $fetchData() {
 
 export function reducer(
   state = {
-    data: null,
+    tasks: null,
   },
   action,
 ) {
   switch (action.type) {
-    case HOME_DATA_REQUEST:
+    case HOME_TASK_INDEX_REQUEST:
       return {
         ...state,
-        data: null,
+        tasks: null,
       };
-    case HOME_DATA_SUCCESS:
+    case HOME_TASK_INDEX_SUCCESS:
       return {
         ...state,
-        data: action.data,
+        tasks: action.tasks,
       };
-    case HOME_DATA_FAILURE:
+    case HOME_TASK_INDEX_FAILURE:
       return {
         ...state,
-        data: null,
+        tasks: null,
       };
     default:
       return state;
@@ -137,9 +137,9 @@ export function reducer(
  * Persister
  */
 
-export function persister({ data }) {
+export function persister({ tasks }) {
   return {
-    data,
+    tasks,
   };
 }
 ```
@@ -167,16 +167,16 @@ import { connect } from 'react-redux';
 
 import * as activity from '../common/activity.state';
 
-import { $fetchData } from './state';
+import { $fetchTaskIndex } from './state';
 
 const withStore = connect(
   (state) => ({
-    data: state.Home.data,
+    tasks: state.Home.tasks,
   }),
   (dispatch) => ({
     load() {
-      dispatch($fetchData())
-        .then(() => dispatch(activity.$toast('success', 'Home data loaded')))
+      dispatch($fetchTaskIndex())
+        .then(() => dispatch(activity.$toast('success', 'Tasks loaded')))
         .catch((error) => dispatch(activity.$toast('failure', error.message)));
     },
   }),
@@ -190,7 +190,7 @@ class HomeView extends Component {
   }
 
   render() {
-    return <pre>{JSON.stringify(this.props.data, null, 2)}</pre>;
+    return <pre>{JSON.stringify(this.props.tasks, null, 2)}</pre>;
   }
 }
 
