@@ -1,6 +1,6 @@
 # API Specifications
 
-[Preview](https://htmlpreview.github.io/?https://github.com/emiketic/emiketic-starter-dev/tree/master/docs/api-spec/index.html)
+[Preview](https://htmlpreview.github.io/?https://raw.githubusercontent.com/emiketic/emiketic-starter-dev/master/docs/api-spec/index.html)
 
 ## Content
 
