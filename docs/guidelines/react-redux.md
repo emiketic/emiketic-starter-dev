@@ -9,10 +9,10 @@ and check `Auth` and `Home` modules for concrete example.
 
 ## Repository Structure
 
-Organise repository **by topic** (or module or feature set):
+Organise repository **by module** (feature set, topic, ...):
 
-- All state management, components, and screens should be fragmented **by topic** and placed within dedicated topic folder.
-- Shared state management and components should be placed under `common` topic.
+- All state management, components, and screens should be fragmented **by module** and placed within dedicated module folder.
+- Shared state management and components should be placed under `store` module.
 
 ```sh
 src/
@@ -22,12 +22,19 @@ src/
 ├── App.css
 ├── common
 │   ├── config.js
-│   ├── state.js
-│   └── activity.state.js
+│   └── ...
+├── store
+│   ├── index.js
+│   └── state.js
 └── Home
     ├── index.js
     ├── state.js
     └── HomeView.js
+└── Shared
+    ├── index.js
+    ├── state.js
+    ├── Activity.state.js
+    └── ...
 ```
 
 ## JavaScipt/React
@@ -36,13 +43,13 @@ src/
 
 ## State Management with Redux
 
-- State management should be fragmented **by topic** and composed in `common/state.js`.
+- State management should be fragmented **by module** and composed in `common/state.js`.
 
 - State name should match module name.
 
 - _Action types_, _action creators_, and _reducer_ should be defined within the **same file** named `state.js`.
 
-- _Action types_ must be prefixed with topic name.
+- _Action types_ must be prefixed with module name.
 
 - State management definition should export **only** _**exposed** action creators_ (public interface), _reducer_ , _persister_, and event handlers.
 
@@ -50,12 +57,12 @@ src/
 
 A typical asynchronous operation must be defined using [`redux-thunk`](https://github.com/gaearon/redux-thunk) as follows:
 
-- a request _action type_ (`TOPIC_OPERATION_REQUEST`)
+- a request _action type_ (`MODULE_OPERATION_REQUEST`)
 - a request _**internal** action creator_ (`operationRequest()`)
-- a success _action type_ (`TOPIC_OPERATION_SUCCESS`)
+- a success _action type_ (`MODULE_OPERATION_SUCCESS`)
 - a success _**internal** action creator_ (`operationSuccess({ ... })`)
   - returns a value - or a promise with a value - to be passed to view layer by _**exposed** action creator_
-- a failure _action type_ (`TOPIC_OPERATION_FAILURE`)
+- a failure _action type_ (`MODULE_OPERATION_FAILURE`)
 - a failure _**internal** action creator_ (`operationFailure(error)`)
   - throws an error to be passed to view layer by _**exposed** action creator_
 - an _**exposed** action creator_ (`$operation(param1, param2, ...)`)
