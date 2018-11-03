@@ -1,7 +1,5 @@
-FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
-# Starter API
+# Group Authentication
 
 ## Authentication [/auth]
 
@@ -64,11 +62,11 @@ HOST: http://polls.apiblueprint.org/
 
         {
             "code": "AccountEmailExists",
-            "message": "An account with the provided email address already exists. Please try account recovery."
+            "message": "An account with the provided email address already exists. Please try password reset."
         }
 
 
-### Account Recovery Initiation [POST /auth/recovery/initiate]
+### Initiate password reset [POST /auth/password-reset/initiate]
 
 + Request (application/json)
 
@@ -83,7 +81,7 @@ HOST: http://polls.apiblueprint.org/
         }
 
 
-### Account Recovery Password Reset [POST /auth/recovery/reset]
+### Continue password reset [POST /auth/password-reset/continue]
 
 + Request (application/json)
 
@@ -106,7 +104,7 @@ HOST: http://polls.apiblueprint.org/
         }
 
 
-### User account [GET /auth/account]
+### Retrieve user account [GET /auth/account]
 
 + Request
 
@@ -141,7 +139,7 @@ HOST: http://polls.apiblueprint.org/
 
 ## Tasks [/task]
 
-### list tasks [GET /task/index]
+### Retrieve tasks index [GET /task/index]
 
 + Request
 
@@ -169,3 +167,28 @@ HOST: http://polls.apiblueprint.org/
             "code": "Unauthenticated",
             "message": "Not authenticated"
         }
+
+### Retrieve tasks item [GET /task/{id}]
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+
++ Response 200 (application/json)
+
+        {
+            "id": "1",
+            "label": "do something...",
+            "done": true
+        }
+
++ Response 401 (application/json)
+
+        {
+            "code": "Unauthenticated",
+            "message": "Not authenticated"
+        }
+
+

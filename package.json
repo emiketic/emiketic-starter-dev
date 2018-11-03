@@ -1,7 +1,9 @@
 {
   "scripts": {
     "format": "prettier README.md ./{docs,defaults}/**/*.{md,json} --write",
-    "services:cleanup": "sudo rm -fr ./services/*/data.tmp/"
+    "services:cleanup": "sudo rm -fr ./services/*/data.tmp/",
+    "docs:generate": "docker run -it --rm -v $PWD/docs/api-spec:/doc humangeo/aglio --theme-variables flatly -o /doc/index.html -i /doc/index.apib",
+    "docs:generate:alt": "docker run -it --rm -v $PWD/docs/api-spec:/doc quay.io/bukalapak/snowboard html -o index.html /doc/index.apib"
   },
   "devDependencies": {
     "prettier": "~1.14.3"

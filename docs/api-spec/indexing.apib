@@ -1,13 +1,11 @@
-FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
-# Listing API with Pagination, Sorting, and Filtering
+# Group Indexing
 
-Posts listing.
+Index API with pagination, sorting, and filtering.
 
-## Posts Collection [/posts]
+## Posts [/posts]
 
-### List Posts [GET /posts{?offset,limit,sort,filter}]
+### Retrieve posts [GET /posts{?offset,limit,sort,filter}]
 
 + Parameters
     + offset: `0` (number, optional) - Requested offset.
@@ -51,3 +49,5 @@ Posts listing.
                 }
             }
         }
+
+
