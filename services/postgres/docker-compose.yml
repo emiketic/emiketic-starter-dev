@@ -9,3 +9,12 @@ services:
       - 5432:5432
     volumes:
       - ./data.tmp:/var/lib/postgresql/data
+
+  pgadmin: # => http://localhost:1101/
+    image: dpage/pgadmin4:3
+    hostname: pgadmin
+    ports:
+      - 1101:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin
+      PGADMIN_DEFAULT_PASSWORD: pgadmin

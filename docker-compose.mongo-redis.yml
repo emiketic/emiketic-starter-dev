@@ -24,6 +24,6 @@ services:
 
   redis-commander:
     extends:
-      file: ./services/redis-commander/docker-compose.yml
+      file: ./services/redis/docker-compose.yml
       service: redis-commander
     container_name: ${PROJECT}-redis-commander

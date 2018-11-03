@@ -1,4 +1,6 @@
-# Development Starter
+# Starter Development
+
+A set of common development tooling.
 
 Contains following services in form of `docker-compose` configurations:
 

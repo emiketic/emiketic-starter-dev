@@ -18,7 +18,7 @@ services:
 
   pgadmin:
     extends:
-      file: ./services/pgadmin/docker-compose.yml
+      file: ./services/postgres/docker-compose.yml
       service: pgadmin
     container_name: ${PROJECT}-pgadmin
 
@@ -30,6 +30,6 @@ services:
 
   redis-commander:
     extends:
-      file: ./services/redis-commander/docker-compose.yml
+      file: ./services/redis/docker-compose.yml
       service: redis-commander
     container_name: ${PROJECT}-redis-commander

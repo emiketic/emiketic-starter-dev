@@ -2,7 +2,7 @@ version: '2.3'
 
 services:
 
-  thumbor:
+  thumbor: # => http://localhost:8888/
     image: apsl/thumbor:6.4.2
     hostname: thumbor
     ports:
@@ -12,5 +12,3 @@ services:
       - ./data.tmp:/data
     environment:
       - UPLOAD_ENABLED=True
-
-# => http://localhost:8888/

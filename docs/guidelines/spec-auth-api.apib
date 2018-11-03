@@ -139,10 +139,9 @@ HOST: http://polls.apiblueprint.org/
             "message": "Not authorized"
         }
 
-## To Do [/todo]
+## Tasks [/task]
 
-
-### Retrieve all notes [GET /todo]
+### list tasks [GET /task/index]
 
 + Request
 
@@ -153,7 +152,7 @@ HOST: http://polls.apiblueprint.org/
 + Response 200 (application/json)
 
         {
-            "todo": [{
+            "data": [{
                 "id": "1",
                 "label": "do something...",
                 "done": true
