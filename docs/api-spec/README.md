@@ -5,4 +5,4 @@
 ## Content
 
 - [Specifications for Authentication API](./auth.apib)
-- [Specifications for Listing API with Pagination, Sorting, and Filtering](./listing.apib)
+- [Specifications for Indexing API with Pagination, Sorting, and Filtering](./indexing.apib)
