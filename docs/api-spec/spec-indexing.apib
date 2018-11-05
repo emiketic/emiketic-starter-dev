@@ -1,11 +1,11 @@
 
-# Group Indexing
+# Group Tasks Indexing
 
-Index API with pagination, sorting, and filtering.
+Indexing API with pagination, sorting, and filtering.
 
-## Posts [/posts]
+## Tasks [/task]
 
-### Retrieve posts [GET /posts{?offset,limit,sort,filter}]
+## Retrieve tasks [GET /task{?offset,limit,sort,filter}]
 
 + Parameters
     + offset: `0` (number, optional) - Requested offset.
@@ -22,19 +22,13 @@ Index API with pagination, sorting, and filtering.
         {
             "data": [
                 {
-                    "id": 1,
-                    "title": "Tite #1",
-                    "body": "Body..."
-                },
-                {
-                    "id": 2,
-                    "title": "Tite #2",
-                    "body": "Body..."
-                },
-                {
-                    "id": 3,
-                    "title": "Tite #3",
-                    "body": "Body..."
+                    "id": "1",
+                    "label": "do something...",
+                    "done": true
+                }, {
+                    "id": "2",
+                    "label": "do something else ...",
+                    "done": false
                 }
             ],
             "meta": {
@@ -49,5 +43,4 @@ Index API with pagination, sorting, and filtering.
                 }
             }
         }
-
 

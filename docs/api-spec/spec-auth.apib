@@ -1,7 +1,7 @@
 
 # Group Authentication
 
-## Authentication [/auth]
+## Authentication [/auth/*]
 
 ### Log in [POST /auth/login]
 
@@ -16,7 +16,7 @@
 + Response 200 (application/json)
 
         {
-            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
             "user": {
                 "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
                 "name": "Test User",
@@ -49,7 +49,7 @@
 + Response 200 (application/json)
 
         {
-            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
             "user": {
                 "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
                 "name": "Test User",
@@ -71,7 +71,7 @@
 + Request (application/json)
 
         {
-          "email": "test@example.com",
+          "email": "test@example.com"
         }
 
 
@@ -90,11 +90,10 @@
             "password": "testpass"
         }
 
-
 + Response 200 (application/json)
 
         {
-            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
+            "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9",
             "user": {
                 "id": "f67ebbe0-4cc1-11e8-97ea-c16513384dd0",
                 "name": "Test User",
@@ -110,7 +109,7 @@
 
     + Headers
 
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+            Authorization: Bearer {{ACCESS_TOKEN}}
 
 + Response 200 (application/json)
 
@@ -136,63 +135,3 @@
             "code": "Unauthorized",
             "message": "Not authorized"
         }
-
-## Tasks [/task]
-
-### Retrieve tasks index [GET /task/index]
-
-+ Request
-
-    + Headers
-
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
-
-+ Response 200 (application/json)
-
-        {
-            "data": [{
-                "id": "1",
-                "label": "do something...",
-                "done": true
-            }, {
-                "id": "2",
-                "label": "do something else ...",
-                "done": false
-            }]
-        }
-
-+ Response 401 (application/json)
-
-        {
-            "code": "Unauthenticated",
-            "message": "Not authenticated"
-        }
-
-### Retrieve tasks item [GET /task/{id}]
-
-+ Parameters
-
-    + id: `0` (number, optional) - item id.
-
-+ Request
-
-    + Headers
-
-            Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
-
-+ Response 200 (application/json)
-
-        {
-            "id": "1",
-            "label": "do something...",
-            "done": true
-        }
-
-+ Response 401 (application/json)
-
-        {
-            "code": "Unauthenticated",
-            "message": "Not authenticated"
-        }
-
-

@@ -2,8 +2,11 @@
   "scripts": {
     "format": "prettier README.md ./{docs,defaults}/**/*.{md,json} --write",
     "services:cleanup": "sudo rm -fr ./services/*/data.tmp/",
-    "docs:api:spec": "docker run -it --rm -v $PWD/docs/api-spec:/doc humangeo/aglio --theme-variables flatly -o /doc/index.html -i /doc/index.apib",
-    "docs:api:spec:alt": "docker run -it --rm -v $PWD/docs/api-spec:/doc quay.io/bukalapak/snowboard html -o index.html /doc/index.apib"
+    "docs:api:spec": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data emiketic/development aglio --theme-variables flatly -o /data/index.html -i /data/index.apib",
+    "docs:api:spec:alt": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data emiketic/development snowboard html -o /data/index.html /data/index.apib",
+    "docs:api:mock": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data -p 8087:8087 emiketic/development snowboard mock /data/index.apib",
+    "docs:api:postman": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data emiketic/development sh -c 'cat /data/*.apib | apiary2postman blueprint > /data/index.postman_collection.json'",
+    "docs:api:postman:alt": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data emiketic/development sh -c 'cat  /data/*.apib | drafter -f json -o /data/index.json && blueman convert /data/index.json --output=/data/index.postman_collection.json && rm -f /data/index.json'"
   },
   "devDependencies": {
     "prettier": "~1.14.3"
