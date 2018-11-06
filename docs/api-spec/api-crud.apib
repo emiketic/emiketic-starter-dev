@@ -5,7 +5,7 @@ CRUD API.
 
 ## Tasks [/task/*]
 
-### Retrieve tasks index [GET /task/index]
+### Retrieve index [GET /task]
 
 + Request
 
@@ -34,7 +34,7 @@ CRUD API.
             "message": "Not authenticated"
         }
 
-### Retrieve tasks item [GET /task/{id}]
+### Retrieve item [GET /task/{id}]
 
 + Parameters
 
@@ -49,9 +49,11 @@ CRUD API.
 + Response 200 (application/json)
 
         {
-            "id": "1",
-            "label": "do something...",
-            "done": true
+            "data": {
+                "id": "1",
+                "label": "do something...",
+                "done": true
+            }
         }
 
 + Response 401 (application/json)
