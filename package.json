@@ -9,6 +9,6 @@
     "docs:api:postman:alt": "docker run -it --rm -u $(id -u) -v $PWD/docs/api-spec:/data emiketic/development sh -c 'cat  /data/*.apib | drafter -f json -o /data/index.json && blueman convert /data/index.json --output=/data/index.postman_collection.json && rm -f /data/index.json'"
   },
   "devDependencies": {
-    "prettier": "~1.14.3"
+    "prettier": "~1.15.1"
   }
 }
