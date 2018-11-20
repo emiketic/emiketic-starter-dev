@@ -4,12 +4,6 @@ version: '2.3'
 
 services:
 
-  mailcatcher:
-    extends:
-      file: ./services/mailcatcher/docker-compose.yml
-      service: mailcatcher
-    container_name: ${PROJECT}-mailcatcher
-
   # postgres:
   #   extends:
   #     file: ./services/postgres/docker-compose.yml
@@ -39,9 +33,23 @@ services:
       file: ./services/redis/docker-compose.yml
       service: redis-commander
     container_name: ${PROJECT}-redis-commander
+    depends_on:
+      - redis
 
   # thumbor:
   #   extends:
   #     file: ./services/thumbor/docker-compose.yml
   #     service: thumbor
   #   container_name: ${PROJECT}-thumbor
+
+  # mailcatcher:
+  #   extends:
+  #     file: ./services/mailcatcher/docker-compose.yml
+  #     service: mailcatcher
+  #   container_name: ${PROJECT}-mailcatcher
+
+  notification-catcher:
+    extends:
+      file: ./services/notification-catcher/docker-compose.yml
+      service: notification-catcher
+    container_name: ${PROJECT}-notification-catcher

@@ -4,12 +4,6 @@ version: '2.3'
 
 services:
 
-  mailcatcher:
-    extends:
-      file: ./services/mailcatcher/docker-compose.yml
-      service: mailcatcher
-    container_name: ${PROJECT}-mailcatcher
-
   mongo:
     extends:
       file: ./services/mongo/docker-compose.yml
@@ -27,3 +21,5 @@ services:
       file: ./services/redis/docker-compose.yml
       service: redis-commander
     container_name: ${PROJECT}-redis-commander
+    depends_on:
+      - redis

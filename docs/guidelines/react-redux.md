@@ -43,7 +43,7 @@ src/
 
 ## State Management with Redux
 
-- State management should be fragmented **by module** and composed in `common/state.js`.
+- State management should be fragmented **by module** and composed in `store/state.js`.
 
 - State name should match module name.
 
@@ -76,36 +76,41 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 ```javascript
 import * as FetchHelper from '../common/fetch.helper';
 import * as StateHelper from '../common/state.helper';
-import * as activity from '../common/activity.state';
+import * as Activity from '../common/Activity.state';
 
-export const NAME = 'Home';
+export const MODULE = 'Home';
+
+/**
+ * Initial State
+ */
+
+const INITIAL_STATE = {
+  tasks: null,
+};
 
 /**
  * Fetch Tasks
  */
 
-const HOME_TASK_INDEX_REQUEST = 'HOME_TASK_INDEX_REQUEST';
+const HOME_TASK_FETCH_INDEX_REQUEST = 'HOME_TASK_FETCH_INDEX_REQUEST';
+const fetchTaskIndexRequest = StateHelper.createRequestAction(HOME_TASK_FETCH_INDEX_REQUEST);
 
-const fetchTaskIndexRequest = StateHelper.createRequestAction(HOME_TASK_INDEX_REQUEST);
+const HOME_TASK_FETCH_INDEX_SUCCESS = 'HOME_TASK_FETCH_INDEX_SUCCESS';
+const fetchTaskIndexSuccess = StateHelper.createSuccessAction(HOME_TASK_FETCH_INDEX_SUCCESS);
 
-const HOME_TASK_INDEX_SUCCESS = 'HOME_TASK_INDEX_SUCCESS';
-
-const fetchTaskIndexSuccess = StateHelper.createSuccessAction(HOME_TASK_INDEX_SUCCESS);
-
-const HOME_TASK_INDEX_FAILURE = 'HOME_TASK_INDEX_FAILURE';
-
-const fetchTaskIndexFailure = StateHelper.createFailureAction(HOME_TASK_INDEX_FAILURE);
+const HOME_TASK_FETCH_INDEX_FAILURE = 'HOME_TASK_FETCH_INDEX_FAILURE';
+const fetchTaskIndexFailure = StateHelper.createFailureAction(HOME_TASK_FETCH_INDEX_FAILURE);
 
 export function $fetchTaskIndex() {
   return (dispatch) => {
-    dispatch(activity.$processing());
+    dispatch(Activity.$processing());
     dispatch(fetchTaskIndexRequest());
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
       .then((result) => dispatch(fetchTaskIndexSuccess({ tasks: result })))
       .catch((error) => dispatch(fetchTaskIndexFailure(error)))
-      .finally(() => dispatch(activity.$done()));
+      .finally(() => dispatch(Activity.$done()));
   };
 }
 
@@ -113,24 +118,19 @@ export function $fetchTaskIndex() {
  * Reducer
  */
 
-export function reducer(
-  state = {
-    tasks: null,
-  },
-  action,
-) {
+export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case HOME_TASK_INDEX_REQUEST:
+    case HOME_TASK_FETCH_INDEX_REQUEST:
       return {
         ...state,
         tasks: null,
       };
-    case HOME_TASK_INDEX_SUCCESS:
+    case HOME_TASK_FETCH_INDEX_SUCCESS:
       return {
         ...state,
         tasks: action.tasks,
       };
-    case HOME_TASK_INDEX_FAILURE:
+    case HOME_TASK_FETCH_INDEX_FAILURE:
       return {
         ...state,
         tasks: null,
@@ -153,8 +153,9 @@ export function persister({ tasks }) {
 
 ## Components
 
-- Prefer stateless functional components. (UI is a pure function of the props!)
+- Prefer stateless functional components (UI as pure function of the props).
 - Rely on `react-redux`' `connect()` to attach state and actions to components props.
+  - `connect()` should only expose state using `mapStateToProps` and not define `mapDispatchToProps`, unless the component is a function.
 - Rely on `react-router`' `withRouter()` HOC to get routing props (`match`, `location`, `history`).
 
 ### Redux-connected Components
@@ -172,28 +173,25 @@ export function persister({ tasks }) {
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as activity from '../common/activity.state';
+import * as Activity from '../common/Activity.state';
 
 import { $fetchTaskIndex } from './state';
 
-const withStore = connect(
-  (state) => ({
-    tasks: state.Home.tasks,
-  }),
-  (dispatch) => ({
-    load() {
-      dispatch($fetchTaskIndex())
-        .then(() => dispatch(activity.$toast('success', 'Tasks loaded')))
-        .catch((error) => dispatch(activity.$toast('failure', error.message)));
-    },
-  }),
-);
+const withStore = connect((state) => ({
+  tasks: state.Home.tasks,
+}));
 
-const Connector = (C) => withStore(C);
+const Wrapper = (C) => withStore(C);
 
 class HomeView extends Component {
   componentDidMount() {
-    this.props.load();
+    this.load();
+  }
+
+  load() {
+    this.props.dispatch($fetchTaskIndex())
+      .then(() => this.props.dispatch(Activity.$toast('success', 'Tasks loaded')))
+      .catch((error) => dispatch(Activity.$toast('failure', error.message)));
   }
 
   render() {
@@ -201,7 +199,7 @@ class HomeView extends Component {
   }
 }
 
-export default Connector(HomeView);
+export default Wrapper(HomeView);
 ```
 
 ### Non-View Components
