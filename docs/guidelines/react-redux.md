@@ -3,6 +3,7 @@
 Refer to the following repositories for reference implementation:
 
 - [React Starter with Material Design](https://github.com/emiketic/emiketic-starter-react/)
+- [React Starter with Ant Design](https://github.com/emiketic/emiketic-starter-react-antd/)
 - [React Native Starter](https://github.com/emiketic/emiketic-starter-react-native/)
 
 and check `Auth` and `Home` modules for concrete example.
@@ -75,7 +76,6 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 
 ```javascript
 import * as FetchHelper from '../common/fetch.helper';
-import * as StateHelper from '../common/state.helper';
 import * as Activity from '../common/Activity.state';
 
 export const MODULE = 'Home';
@@ -93,13 +93,13 @@ const INITIAL_STATE = {
  */
 
 const HOME_TASK_FETCH_INDEX_REQUEST = 'HOME_TASK_FETCH_INDEX_REQUEST';
-const fetchTaskIndexRequest = StateHelper.createRequestAction(HOME_TASK_FETCH_INDEX_REQUEST);
+const fetchTaskIndexRequest = (params) => ({ type: HOME_TASK_FETCH_INDEX_REQUEST, ...params });
 
 const HOME_TASK_FETCH_INDEX_SUCCESS = 'HOME_TASK_FETCH_INDEX_SUCCESS';
-const fetchTaskIndexSuccess = StateHelper.createSuccessAction(HOME_TASK_FETCH_INDEX_SUCCESS);
+const fetchTaskIndexSuccess = (data) => ({ type: HOME_TASK_FETCH_INDEX_SUCCESS, data });
 
 const HOME_TASK_FETCH_INDEX_FAILURE = 'HOME_TASK_FETCH_INDEX_FAILURE';
-const fetchTaskIndexFailure = StateHelper.createFailureAction(HOME_TASK_FETCH_INDEX_FAILURE);
+const fetchTaskIndexFailure = (error) => ({ type: HOME_TASK_FETCH_INDEX_FAILURE });
 
 export function $fetchTaskIndex() {
   return (dispatch) => {
@@ -128,7 +128,7 @@ export function reducer(state = INITIAL_STATE, action) {
     case HOME_TASK_FETCH_INDEX_SUCCESS:
       return {
         ...state,
-        tasks: action.tasks,
+        tasks: action.data,
       };
     case HOME_TASK_FETCH_INDEX_FAILURE:
       return {
@@ -155,7 +155,7 @@ export function persister({ tasks }) {
 
 - Prefer stateless functional components (UI as pure function of the props).
 - Rely on `react-redux`' `connect()` to attach state and actions to components props.
-  - `connect()` should only expose state using `mapStateToProps` and not define `mapDispatchToProps`, unless the component is a function.
+  - `connect()` should only expose state using `mapStateToProps` and do not define `mapDispatchToProps`, unless the component is defined with a function.
 - Rely on `react-router`' `withRouter()` HOC to get routing props (`match`, `location`, `history`).
 
 ### Redux-connected Components
@@ -189,8 +189,9 @@ class HomeView extends Component {
   }
 
   load() {
-    this.props.dispatch($fetchTaskIndex())
-      .then(() => this.props.dispatch(Activity.$toast('success', 'Tasks loaded')))
+    const { dispatch } = this.props;
+    dispatch($fetchTaskIndex())
+      .then(() => dispatch(Activity.$toast('success', 'Tasks loaded')))
       .catch((error) => dispatch(Activity.$toast('failure', error.message)));
   }
 

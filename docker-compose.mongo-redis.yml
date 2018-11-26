@@ -1,7 +1,5 @@
 version: '2.3'
 
-# comment/uncomment services according to pereference
-
 services:
 
   mongo:
