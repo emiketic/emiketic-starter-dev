@@ -78,6 +78,10 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 import * as FetchHelper from '../common/fetch.helper';
 import * as Activity from '../common/Activity.state';
 
+/**
+ * Module Name
+ */
+
 export const MODULE = 'Home';
 
 /**
