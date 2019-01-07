@@ -1,4 +1,7 @@
 {
+  "private": true,
+  "name": "starter-dev",
+  "version": "0.1.0",
   "scripts": {
     "format": "prettier README.md ./{docs,defaults}/**/*.{md,json} --write",
     "services:cleanup": "sudo rm -fr ./services/*/data.tmp/"
