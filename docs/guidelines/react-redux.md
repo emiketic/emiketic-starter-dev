@@ -96,25 +96,22 @@ const INITIAL_STATE = {
  * Fetch Tasks
  */
 
-const HOME_TASK_FETCH_INDEX_REQUEST = 'HOME_TASK_FETCH_INDEX_REQUEST';
-const fetchTaskIndexRequest = (params) => ({ type: HOME_TASK_FETCH_INDEX_REQUEST, ...params });
+const fetchTaskIndex = 'fetchTaskIndex';
 
-const HOME_TASK_FETCH_INDEX_SUCCESS = 'HOME_TASK_FETCH_INDEX_SUCCESS';
-const fetchTaskIndexSuccess = (data) => ({ type: HOME_TASK_FETCH_INDEX_SUCCESS, data });
-
-const HOME_TASK_FETCH_INDEX_FAILURE = 'HOME_TASK_FETCH_INDEX_FAILURE';
-const fetchTaskIndexFailure = (error) => ({ type: HOME_TASK_FETCH_INDEX_FAILURE });
+const fetchTaskIndex_REQUEST = `${MODULE}_${fetchTaskIndex}_REQUEST`;
+const fetchTaskIndex_SUCCESS = `${MODULE}_${fetchTaskIndex}_SUCCESS`;
+const fetchTaskIndex_FAILURE = `${MODULE}_${fetchTaskIndex}_FAILURE`;
 
 export function $fetchTaskIndex() {
   return (dispatch) => {
-    dispatch(Activity.$processing());
-    dispatch(fetchTaskIndexRequest());
+    dispatch(Activity.$processing(MODULE, fetchTaskIndex));
+    dispatch({ type: fetchTaskIndex_REQUEST });
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
-      .then((result) => dispatch(fetchTaskIndexSuccess({ tasks: result })))
-      .catch((error) => dispatch(fetchTaskIndexFailure(error)))
-      .finally(() => dispatch(Activity.$done()));
+      .then((result) => dispatch({ type: fetchTaskIndex_SUCCESS, tasks: result }))
+      .catch((error) => dispatch({ type: fetchTaskIndex_FAILURE, error }))
+      .finally(() => dispatch(Activity.$done(MODULE, fetchTaskIndex)));
   };
 }
 
@@ -124,17 +121,17 @@ export function $fetchTaskIndex() {
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case HOME_TASK_FETCH_INDEX_REQUEST:
+    case fetchTaskIndex_REQUEST:
       return {
         ...state,
         tasks: null,
       };
-    case HOME_TASK_FETCH_INDEX_SUCCESS:
+    case fetchTaskIndex_SUCCESS:
       return {
         ...state,
         tasks: action.data,
       };
-    case HOME_TASK_FETCH_INDEX_FAILURE:
+    case fetchTaskIndex_FAILURE:
       return {
         ...state,
         tasks: null,
