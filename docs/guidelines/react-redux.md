@@ -35,6 +35,7 @@ src/
     ├── index.js
     ├── state.js
     ├── Activity.state.js
+    ├── Activity.service.js
     └── ...
 ```
 
@@ -76,7 +77,7 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 
 ```javascript
 import * as FetchHelper from '../common/fetch.helper';
-import * as Activity from '../common/Activity.state';
+import * as Activity from '../Shared/Activity.service';
 
 /**
  * Module Name
@@ -104,14 +105,12 @@ const fetchTaskIndex_FAILURE = `${MODULE}_${fetchTaskIndex}_FAILURE`;
 
 export function $fetchTaskIndex() {
   return (dispatch) => {
-    dispatch(Activity.$processing(MODULE, fetchTaskIndex));
     dispatch({ type: fetchTaskIndex_REQUEST });
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
       .then((result) => dispatch({ type: fetchTaskIndex_SUCCESS, tasks: result }))
-      .catch((error) => dispatch({ type: fetchTaskIndex_FAILURE, error }))
-      .finally(() => dispatch(Activity.$done(MODULE, fetchTaskIndex)));
+      .catch((error) => dispatch({ type: fetchTaskIndex_FAILURE, error }));
   };
 }
 
@@ -174,7 +173,7 @@ export function persister({ tasks }) {
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as Activity from '../common/Activity.state';
+import * as Activity from '../Shared/Activity.service';
 
 import { $fetchTaskIndex } from './state';
 
@@ -192,8 +191,8 @@ class HomeView extends Component {
   load() {
     const { dispatch } = this.props;
     dispatch($fetchTaskIndex())
-      .then(() => dispatch(Activity.$toast('success', 'Tasks loaded')))
-      .catch((error) => dispatch(Activity.$toast('failure', error.message)));
+      .then(() => Activity.toast('success', 'Tasks loaded'))
+      .catch((error) => Activity.toast('failure', error.message));
   }
 
   render() {
