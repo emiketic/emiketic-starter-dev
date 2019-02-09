@@ -36,6 +36,12 @@ services:
     depends_on:
       - redis
 
+  # elasticsearch:
+  #   extends:
+  #     file: ./services/elasticsearch/docker-compose.yml
+  #     service: elasticsearch
+  #   container_name: ${PROJECT}-elasticsearch
+
   # thumbor:
   #   extends:
   #     file: ./services/thumbor/docker-compose.yml
