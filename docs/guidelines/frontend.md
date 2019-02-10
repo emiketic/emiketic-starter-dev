@@ -28,7 +28,7 @@ https://raw.githubusercontent.com/wiki/thumbor/thumbor/logo-thumbor.png
 use the following to resize to 300x100
 
 ```
-http://thumbor.starter.com/unsafe/300x100/https://raw.githubusercontent.com/wiki/thumbor/thumbor/logo-thumbor.png
+http://thumbor.emiketic.com/unsafe/300x100/https://raw.githubusercontent.com/wiki/thumbor/thumbor/logo-thumbor.png
 ```
 
-![](http://thumbor.starter.com/unsafe/300x200/https://raw.githubusercontent.com/wiki/thumbor/thumbor/logo-thumbor.png)
+![](http://thumbor.emiketic.com/unsafe/300x200/https://raw.githubusercontent.com/wiki/thumbor/thumbor/logo-thumbor.png)
