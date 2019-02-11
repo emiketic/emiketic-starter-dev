@@ -1,5 +1,7 @@
 # Starter Development
 
+![](https://img.shields.io/david/emiketic/emiketic-starter-dev.svg?style=for-the-badge)
+
 A set of common development tooling.
 
 Contains following services in form of `docker-compose` configurations:
