@@ -42,6 +42,12 @@ services:
   #     service: elasticsearch
   #   container_name: ${PROJECT}-elasticsearch
 
+  # minio:
+  #   extends:
+  #     file: ./services/minio/docker-compose.yml
+  #     service: minio
+  #   container_name: ${PROJECT}-minio
+
   # thumbor:
   #   extends:
   #     file: ./services/thumbor/docker-compose.yml

@@ -10,6 +10,7 @@ Contains following services in form of `docker-compose` configurations:
 - MongoDB v4.0
 - Redis v5.0 + [Redis Commander](http://joeferner.github.io/redis-commander/)
 - ElasticSearch v6.6
+- [Minio](https://www.minio.io/)
 - [Thumbor](http://thumbor.org/) v6.4.2
 - [MailCatcher](https://mailcatcher.me/)
 - [Notification Catcher](https://github.com/notifme/catcher)
