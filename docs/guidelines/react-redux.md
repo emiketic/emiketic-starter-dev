@@ -77,7 +77,6 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 
 ```javascript
 import * as FetchHelper from '../common/fetch.helper';
-import * as Activity from '../Shared/Activity.service';
 
 /**
  * Module Name
@@ -97,11 +96,11 @@ const INITIAL_STATE = {
  * Fetch Tasks
  */
 
-const fetchTaskIndex = 'fetchTaskIndex';
+const fetchTaskIndex = `${MODULE}_fetchTaskIndex`;
 
-const fetchTaskIndex_REQUEST = `${MODULE}_${fetchTaskIndex}_REQUEST`;
-const fetchTaskIndex_SUCCESS = `${MODULE}_${fetchTaskIndex}_SUCCESS`;
-const fetchTaskIndex_FAILURE = `${MODULE}_${fetchTaskIndex}_FAILURE`;
+const fetchTaskIndex_REQUEST = `${fetchTaskIndex}_REQUEST`;
+const fetchTaskIndex_SUCCESS = `${fetchTaskIndex}_SUCCESS`;
+const fetchTaskIndex_FAILURE = `${fetchTaskIndex}_FAILURE`;
 
 export function $fetchTaskIndex() {
   return (dispatch) => {
