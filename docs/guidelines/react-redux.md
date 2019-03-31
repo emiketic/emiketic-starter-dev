@@ -35,7 +35,8 @@ src/
     ├── index.js
     ├── state.js
     ├── Activity.state.js
-    ├── Activity.service.js
+    ├── Activity.js
+    ├── Dialog.js
     └── ...
 ```
 
@@ -172,7 +173,8 @@ export function persister({ tasks }) {
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as Activity from '../Shared/Activity.service';
+import * as Activity from '../Shared/Activity';
+import * as Dialog from '../Shared/Dialog';
 
 import { $fetchTaskIndex } from './state';
 
@@ -190,8 +192,8 @@ class HomeView extends Component {
   load() {
     const { dispatch } = this.props;
     dispatch($fetchTaskIndex())
-      .then(() => Activity.toast('success', 'Tasks loaded'))
-      .catch((error) => Activity.toast('failure', error.message));
+      .then(() => Dialog.toast(Dialog.SUCCESS, 'Tasks loaded'))
+      .catch((error) => Dialog.toast(Dialog.FAILURE, error.message));
   }
 
   render() {
