@@ -20,7 +20,6 @@ src/
 ├── index.css
 ├── index.js
 ├── App.js
-├── App.css
 ├── common
 │   ├── config.js
 │   └── ...
