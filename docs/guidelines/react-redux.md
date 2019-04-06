@@ -97,20 +97,20 @@ const INITIAL_STATE = {
  * Fetch Tasks
  */
 
-const fetchTaskIndex = `${MODULE}_fetchTaskIndex`;
+const fetchTasks_OPERATION = `${MODULE}_fetchTasks`;
 
-const fetchTaskIndex_REQUEST = `${fetchTaskIndex}_REQUEST`;
-const fetchTaskIndex_SUCCESS = `${fetchTaskIndex}_SUCCESS`;
-const fetchTaskIndex_FAILURE = `${fetchTaskIndex}_FAILURE`;
+const fetchTasks_REQUEST = `${fetchTasks_OPERATION}_REQUEST`;
+const fetchTasks_SUCCESS = `${fetchTasks_OPERATION}_SUCCESS`;
+const fetchTasks_FAILURE = `${fetchTasks_OPERATION}_FAILURE`;
 
-export function $fetchTaskIndex() {
+export function $fetchTasks() {
   return (dispatch) => {
-    dispatch({ type: fetchTaskIndex_REQUEST });
+    dispatch({ type: fetchTasks_REQUEST });
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
-      .then((result) => dispatch({ type: fetchTaskIndex_SUCCESS, tasks: result }))
-      .catch((error) => dispatch({ type: fetchTaskIndex_FAILURE, error }));
+      .then((result) => dispatch({ type: fetchTasks_SUCCESS, tasks: result }))
+      .catch((error) => dispatch({ type: fetchTasks_FAILURE, error }));
   };
 }
 
@@ -120,17 +120,17 @@ export function $fetchTaskIndex() {
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case fetchTaskIndex_REQUEST:
+    case fetchTasks_REQUEST:
       return {
         ...state,
         tasks: null,
       };
-    case fetchTaskIndex_SUCCESS:
+    case fetchTasks_SUCCESS:
       return {
         ...state,
         tasks: action.data,
       };
-    case fetchTaskIndex_FAILURE:
+    case fetchTasks_FAILURE:
       return {
         ...state,
         tasks: null,
@@ -176,7 +176,7 @@ import { connect } from 'react-redux';
 import * as Activity from '../Shared/Activity';
 import * as Dialog from '../Shared/Dialog';
 
-import { $fetchTaskIndex } from './state';
+import { $fetchTasks } from './state';
 
 const withStore = connect((state) => ({
   tasks: state.Home.tasks,
@@ -191,7 +191,7 @@ class HomeView extends Component {
 
   load() {
     const { dispatch } = this.props;
-    dispatch($fetchTaskIndex())
+    dispatch($fetchTasks())
       .then(() => Dialog.toast(Dialog.SUCCESS, 'Tasks loaded'))
       .catch((error) => Dialog.toast(Dialog.FAILURE, error.message));
   }
