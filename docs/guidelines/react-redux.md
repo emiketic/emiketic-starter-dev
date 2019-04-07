@@ -79,13 +79,13 @@ A typical asynchronous operation must be defined using [`redux-thunk`](https://g
 import * as FetchHelper from '../common/fetch.helper';
 
 /**
- * Module Name
+ * Module name
  */
 
 export const MODULE = 'Home';
 
 /**
- * Initial State
+ * Initial state
  */
 
 const INITIAL_STATE = {
@@ -93,7 +93,7 @@ const INITIAL_STATE = {
 };
 
 /**
- * Fetch Tasks
+ * Fetch tasks
  */
 
 const fetchTasks_OPERATION = `${MODULE}_fetchTasks`;
