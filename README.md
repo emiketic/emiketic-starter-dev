@@ -1,6 +1,6 @@
-# Starter Development
+# Hello World Development
 
-![](https://img.shields.io/david/emiketic/emiketic-starter-dev.svg?style=for-the-badge)
+![](https://img.shields.io/david/emiketic/helloworld-dev.svg?style=for-the-badge)
 
 A set of common development tooling.
 

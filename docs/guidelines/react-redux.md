@@ -2,9 +2,9 @@
 
 Refer to the following repositories for reference implementation:
 
-- [React/Redux with Material Design](https://github.com/emiketic/emiketic-starter-react/)
-- [React/Redux with Ant Design](https://github.com/emiketic/emiketic-starter-react-antd/)
-- [React Native](https://github.com/emiketic/emiketic-starter-react-native/)
+- [React/Redux with Material Design](https://github.com/emiketic/helloworld-react-material/)
+- [React/Redux with Ant Design](https://github.com/emiketic/helloworld-react-antd/)
+- [React Native](https://github.com/emiketic/helloworld-react-native/)
 
 and check `Auth` and `Home` modules for concrete example.
 
