@@ -62,7 +62,7 @@ sudo pip install pipenv
 
 # START Node.js
 
-curl -sL https://deb.nodesource.com/setup_8.x | sudo bash
+curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
 sudo apt-get install -y nodejs
 
 sudo mkdir -p /opt/npm /usr/etc

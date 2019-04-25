@@ -268,7 +268,7 @@ function getURLContentPromise(url) {
 }
 ```
 
-Node.js v8 provides an utility function `util.promisify`, that does this:
+Node.js provides an utility function `util.promisify`, that does this:
 
 ```javascript
 const getURLContentPromise = util.promisify(getURLContentCallback);
