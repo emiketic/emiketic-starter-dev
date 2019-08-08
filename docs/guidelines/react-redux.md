@@ -35,7 +35,7 @@ src/
     ├── state.js
     ├── Activity.state.js
     ├── Activity.js
-    ├── Dialog.js
+    ├── Interaction.js
     └── ...
 ```
 
@@ -89,27 +89,27 @@ export const MODULE = 'Home';
  */
 
 const defineInitialState = () => ({
-  tasks: null,
+  posts: null,
 });
 
 /**
- * Fetch tasks
+ * Fetch posts
  */
 
-const fetchTasks_OPERATION = `${MODULE}_fetchTasks`;
+const fetchPosts_OPERATION = `${MODULE}_fetchPosts`;
 
-const fetchTasks_REQUEST = `${fetchTasks_OPERATION}_REQUEST`;
-const fetchTasks_SUCCESS = `${fetchTasks_OPERATION}_SUCCESS`;
-const fetchTasks_FAILURE = `${fetchTasks_OPERATION}_FAILURE`;
+const fetchPosts_REQUEST = `${fetchPosts_OPERATION}_REQUEST`;
+const fetchPosts_SUCCESS = `${fetchPosts_OPERATION}_SUCCESS`;
+const fetchPosts_FAILURE = `${fetchPosts_OPERATION}_FAILURE`;
 
-export function $fetchTasks() {
+export function $fetchPosts() {
   return (dispatch) => {
-    dispatch({ type: fetchTasks_REQUEST });
+    dispatch({ type: fetchPosts_REQUEST });
 
     return fetch('https://httpbin.org/ip')
       .then(FetchHelper.processResponse, FetchHelper.processError)
-      .then((result) => dispatch({ type: fetchTasks_SUCCESS, tasks: result }))
-      .catch((error) => dispatch({ type: fetchTasks_FAILURE, error }));
+      .then((result) => dispatch({ type: fetchPosts_SUCCESS, posts: result }))
+      .catch((error) => dispatch({ type: fetchPosts_FAILURE, error }));
   };
 }
 
@@ -119,20 +119,20 @@ export function $fetchTasks() {
 
 export function reducer(state = defineInitialState(), action) {
   switch (action.type) {
-    case fetchTasks_REQUEST:
+    case fetchPosts_REQUEST:
       return {
         ...state,
-        tasks: null,
+        posts: null,
       };
-    case fetchTasks_SUCCESS:
+    case fetchPosts_SUCCESS:
       return {
         ...state,
-        tasks: action.data,
+        posts: action.data,
       };
-    case fetchTasks_FAILURE:
+    case fetchPosts_FAILURE:
       return {
         ...state,
-        tasks: null,
+        posts: null,
       };
     default:
       return state;
@@ -143,9 +143,9 @@ export function reducer(state = defineInitialState(), action) {
  * Persister
  */
 
-export function persister({ tasks }) {
+export function persister({ posts }) {
   return {
-    tasks,
+    posts,
   };
 }
 ```
@@ -173,12 +173,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as Activity from '../Shared/Activity';
-import * as Dialog from '../Shared/Dialog';
+import * as Interaction from '../Shared/Interaction';
 
-import { $fetchTasks } from './state';
+import { $fetchPosts } from './state';
 
 const withStore = connect((state) => ({
-  tasks: state.Home.tasks,
+  posts: state.Home.posts,
 }));
 
 const Wrapper = (C) => withStore(C);
@@ -190,13 +190,11 @@ class HomeView extends Component {
 
   load() {
     const { dispatch } = this.props;
-    dispatch($fetchTasks())
-      .then(() => Dialog.toast(Dialog.SUCCESS, 'Tasks loaded'))
-      .catch((error) => Dialog.toast(Dialog.FAILURE, error.message));
+    dispatch($fetchPosts()).catch((error) => Interaction.toast(Interaction.FAILURE, error.message));
   }
 
   render() {
-    return <pre>{JSON.stringify(this.props.tasks, null, 2)}</pre>;
+    return <pre>{JSON.stringify(this.props.posts, null, 2)}</pre>;
   }
 }
 

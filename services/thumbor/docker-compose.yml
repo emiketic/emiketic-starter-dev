@@ -1,7 +1,6 @@
 version: '2.3'
 
 services:
-
   thumbor: # => http://localhost:8888/
     image: apsl/thumbor:6.4.2
     hostname: thumbor
@@ -11,4 +10,4 @@ services:
       # - ./thumbor.conf:/usr/src/app/thumbor.conf
       - ./data.tmp:/data
     environment:
-      - UPLOAD_ENABLED=True
+      UPLOAD_ENABLED: True

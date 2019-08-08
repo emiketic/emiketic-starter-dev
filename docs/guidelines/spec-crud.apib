@@ -3,7 +3,7 @@
 
 CRUD API.
 
-### Retrieve index [GET /task]
+### Retrieve index [GET /post]
 
 + Request
 
@@ -16,20 +16,20 @@ CRUD API.
         {
             "data": [{
                 "id": "ID",
-                "title": "something...",
-                "done": false
+                "title": "Title #1",
+                "body": "..."
             }, {
                 "id": "ID",
-                "title": "something else ...",
-                "done": false
+                "title": "Title #2",
+                "body": "..."
             }]
         }
 
-### Retrieve item [GET /task/{task_id}]
+### Retrieve item [GET /post/{post_id}]
 
 + Parameters
 
-    + task_id: `ID` (id) - item id.
+    + post_id: `ID` (id) - item id.
 
 + Request
 
@@ -42,46 +42,13 @@ CRUD API.
         {
             "data": {
                 "id": "ID",
-                "title": "do something...",
-                "done": false
+                "title": "Title #1",
+                "body": "..."
             }
         }
 
 
-### Create item [POST /task/create]
-
-+ Request
-
-    + Headers
-
-            Authorization: Bearer {{ACCESS_TOKEN}}
-            Content-Type: application/json
-
-    + Body
-
-            {
-                "data": {
-                    "title": "do something...",
-                    "done": false
-                }
-            }
-
-+ Response 200 (application/json)
-
-        {
-            "data": {
-                "id": "ID",
-                "title": "do something...",
-                "done": false
-            }
-        }
-
-
-### Edit item [POST /task/{task_id}/edit]
-
-+ Parameters
-
-    + task_id: `ID` (id) - item id.
+### Create item [POST /post/create]
 
 + Request
 
@@ -94,8 +61,8 @@ CRUD API.
 
             {
                 "data": {
-                    "title": "do something...",
-                    "done": false
+                    "title": "Title #1",
+                    "body": "..."
                 }
             }
 
@@ -104,17 +71,50 @@ CRUD API.
         {
             "data": {
                 "id": "ID",
-                "title": "do something...",
-                "done": false
+                "title": "Title #1",
+                "body": "..."
             }
         }
 
 
-### Delete item [POST /task/{task_id}/delete]
+### Edit item [POST /post/{post_id}/edit]
 
 + Parameters
 
-    + task_id: `ID` (id) - item id.
+    + post_id: `ID` (id) - item id.
+
++ Request
+
+    + Headers
+
+            Authorization: Bearer {{ACCESS_TOKEN}}
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "data": {
+                    "title": "Title #1",
+                    "body": "..."
+                }
+            }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": "ID",
+                "title": "Title #1",
+                "body": "..."
+            }
+        }
+
+
+### Delete item [POST /post/{post_id}/delete]
+
++ Parameters
+
+    + post_id: `ID` (id) - item id.
 
 + Request
 

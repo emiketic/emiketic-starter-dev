@@ -1,5 +1,5 @@
 tmp/
-**/data.tmp/
+data.tmp/
 .vagrant
 *.log
 node_modules/

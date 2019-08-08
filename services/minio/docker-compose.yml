@@ -1,7 +1,6 @@
 version: '2.3'
 
 services:
-
   minio:
     image: minio/minio
     hostname: minio
@@ -10,6 +9,6 @@ services:
     volumes:
       - ./data.tmp:/data
     environment:
-      - MINIO_ACCESS_KEY=minio
-      - MINIO_SECRET_KEY=miniopass
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: password
     command: server /data

@@ -1,7 +1,6 @@
 version: '2.3'
 
 services:
-
   postgres:
     image: postgres:10.1
     hostname: postgres

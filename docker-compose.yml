@@ -3,7 +3,6 @@ version: '2.3'
 # comment/uncomment services according to pereference
 
 services:
-
   # postgres:
   #   extends:
   #     file: ./services/postgres/docker-compose.yml
